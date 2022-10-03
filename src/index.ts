@@ -2,6 +2,7 @@ import { createServer } from "http";
 import express from "express";
 import { ApolloServer, gql } from "apollo-server-express";
 import * as dotenv from 'dotenv'
+
 dotenv.config()
 
 import PwnSource from "./pwn_source";
@@ -14,7 +15,6 @@ const startServer = async () => {
 
   const typeDefs = gql`
     type Query {
-      hello: String,
       # enter an email address to check if it has been breached
       breachedAccount(email: String!, includeUnverified: Boolean, domain: String): [Breach]
       # enter a domain to search for breaches that have occurred on that domain
@@ -55,7 +55,6 @@ const startServer = async () => {
 
   const resolvers = {
     Query: {
-      hello: () => 'Hello world!',
       breachedAccount: async (_: any, { email, includeUnverified, domain }: any, { dataSources }: any) => dataSources.pwns.getBreachedAccount(email, includeUnverified, domain),
       breaches: async (_: any, { domain }: any, { dataSources }: any) => dataSources.pwns.getBreaches(domain),
       breach: async (_: any, { name }: any, { dataSources }: any) => dataSources.pwns.getBreach(name),
