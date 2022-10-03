@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "name": "sir_pwm_a_lot-server",
   "builds": [
      { "src": "/src/index.ts", "use": "@vercel/node" }
